@@ -79,7 +79,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Padding(
+          child: Container(
+            width: double.infinity,
+            constraints: const BoxConstraints(maxWidth: 400),
             padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -232,10 +234,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final double formattedPrice = widget.price;
-    return SingleChildScrollView(
-      child: Scaffold(
-        backgroundColor: const Color(0xFF1F1D2B),
-        body: SafeArea(
+    return Scaffold(
+      backgroundColor: const Color(0xFF1F1D2B),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -291,6 +293,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     // Country Code Dropdown
                     Container(
+                      width: 100,
                       decoration: BoxDecoration(
                         color: const Color(0xFF2A2D3E),
                         borderRadius: BorderRadius.circular(8),
@@ -303,6 +306,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         child: ButtonTheme(
                           alignedDropdown: true,
                           child: DropdownButton<String>(
+                            isDense: true,
+                            isExpanded: true,
                             value: selectedCountryCode,
                             dropdownColor: const Color(0xFF2A2D3E),
                             icon: const Icon(
@@ -321,9 +326,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ) {
                                   return DropdownMenuItem<String>(
                                     value: code.code,
-                                    child: Text(
-                                      '${code.code} (${code.country})',
-                                    ),
+                                    child: Text(code.code),
                                   );
                                 }).toList(),
                           ),
@@ -406,7 +409,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
 
-                const Spacer(),
+                const SizedBox(height: 40),
 
                 // Pay Now Button
                 ElevatedButton(
